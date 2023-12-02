@@ -1,2 +1,15 @@
+# 網絡請求
 requests
 bs4
+
+# 鍵鼠操控
+pyautogui
+
+# 圖片識別
+opencv-python
+
+# 複製粘貼
+pyperclip
+
+# 带线表格
+tabulate

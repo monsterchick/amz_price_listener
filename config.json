@@ -1,5 +1,10 @@
 {
     "web": {
         "x-s10": "https://www.amazon.co.uk/Fujifilm-Mirrorless-Digital-XC15-45mmF3-5-5-6-Stabiliser/dp/B08KWF7Q7X/ref=sr_1_3?crid=2UER3TPQ3U9NP&keywords=FUJIFILM%2BX-S10%2B%2B%2BFUJINON%2BXC15-45mm&qid=1701501119&sprefix=fujifilm%2Bx-s10%2B%2B%2Bfujinon%2Bxc15-45mm%2Caps%2C78&sr=8-3&th=1"
-    }
+    },
+    "image_path": {
+        "test": "test.png",
+        "emoji": "emoji.png"
+    },
+    "json_path": "config.json"
 }
