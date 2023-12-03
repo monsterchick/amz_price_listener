@@ -1,35 +1,51 @@
-import json
-from module import header_generate
-from notice_methods import deskt_wechat
-from get_price import xs10
-from module.save_data import update_data
-from module.read_data import read
+import datetime
+from module.header_generator import header_generate
+from listen_logit.get_xs10_price import find_price
+import tabulate
+from module.json_operator import Json
+from notice_methods.deskt_wechat import Script
 
-# 加載數據
-with open('config.json', 'r', encoding='utf-8') as f:
-    config = json.load(f)
 
-# 請求的頁面
-amazon_url = config['web']['x-s10'].replace('%', '%%')
-# print(amazon_url)
-headers = {
-    "User-Agent": header_generate.user_agent()
-}
-# print(headers)
+class Main:
+    def __init__(self):
+        self.s = Script()
 
-# 相機價格
-xs10_name = 'xs10_1045kit'
-xs10_price = xs10.find_price(url=amazon_url, headers=headers)
-# print(xs10_price)
-table = update_data(xs10_name, xs10_price)
-# print(table)
+        # 加載config.json數據
+        j = Json('config.json')
+        self.data = j.read_json()
+        # 加載隨機header
+        self.headers = header_generate()
 
-# 更新数据
-update_data(product_name=xs10_name,price=xs10_price)
+        # list(self.data['url'].keys())[0]
+        print(list(self.data['url'].keys())[0])
 
-# 读取数据
-table = read()
-# print(data)
-deskt_wechat.send_by_wechat(table)
+    def make_datetime(self):
+        current_datetime = datetime.datetime.now()
+        formatted_string = current_datetime.strftime("%Y%m%d%H:%M:%S")
+        return formatted_string
+
+    def tbl_message(self,price):
+        header = ['product', 'price', 'date']
+        data = [
+            [list(self.data['url'].keys())[0], price, self.make_datetime()]
+        ]
+
+        colalign = ("center", "center", "center")
+        table = tabulate.tabulate(data, headers=header, tablefmt='Plain',colalign=colalign)
+        return table
+
+    def xs10_listen(self):
+        # 相機價格
+        xs10_price = find_price(url=self.data['url']['xs10'], headers=self.headers)
+        print(xs10_price)
+
+        tbl_message = self.tbl_message(xs10_price)
+
+        self.s.send_by_wechat(tbl_message)
+
+m = Main()
+
+m.xs10_listen()
+
 
 

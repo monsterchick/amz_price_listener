@@ -1,10 +1,6 @@
 {
-    "web": {
-        "x-s10": "https://www.amazon.co.uk/Fujifilm-Mirrorless-Digital-XC15-45mmF3-5-5-6-Stabiliser/dp/B08KWF7Q7X/ref=sr_1_3?crid=2UER3TPQ3U9NP&keywords=FUJIFILM%2BX-S10%2B%2B%2BFUJINON%2BXC15-45mm&qid=1701501119&sprefix=fujifilm%2Bx-s10%2B%2B%2Bfujinon%2Bxc15-45mm%2Caps%2C78&sr=8-3&th=1"
-    },
-    "image_path": {
-        "test": "test.png",
-        "emoji": "emoji.png"
-    },
-    "json_path": "config.json"
+    "url": {
+        "xs10": "https://www.amazon.co.uk/Fujifilm-Mirrorless-Digital-XC15-45mmF3-5-5-6-Stabiliser/dp/B08KWF7Q7X/ref=sr_1_3?crid=2UER3TPQ3U9NP&keywords=FUJIFILM%2BX-S10%2B%2B%2BFUJINON%2BXC15-45mm&qid=1701501119&sprefix=fujifilm%2Bx-s10%2B%2B%2Bfujinon%2Bxc15-45mm%2Caps%2C78&sr=8-3&th=1",
+        "iphone15px256": "https://www.amazon.co.uk/Apple-iPhone-Pro-Max-256/dp/B0CHWYJ3Z2/ref=sr_1_1_sspa?crid=3BAG65AOFR1Z6&keywords=iphone%2B15%2Bpro%2Bmax&qid=1701530555&sprefix=iphone%2B15%2Bpro%2Bmax%2B%2Caps%2C80&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1"
+    }
 }
