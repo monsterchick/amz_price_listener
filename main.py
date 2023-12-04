@@ -20,10 +20,6 @@ class Main:
         self.j = Json('config.json')
         self.config_data = self.j.read_json()
 
-        # 加載data.json數據
-        self.jd = Json('data.json')
-        # self.config_data
-
         # 加載隨機header
         self.headers = header_generate()
 
@@ -32,7 +28,7 @@ class Main:
 
     def make_datetime(self):
         current_datetime = datetime.datetime.now()
-        formatted_string = current_datetime.strftime("%Y%m%d%H:%M:%S")
+        formatted_string = current_datetime.strftime("%Y%m%d_%H:%M:%S")
         self.current_time = formatted_string
         return formatted_string
 
@@ -78,19 +74,22 @@ class Main:
         # print(type(data_update_obj))
 
         # 加載data.json數據
-
+        self.jd = Json('data.json')
+        self.data = self.jd.read_json()
+        print('hhhhh',data_update_obj)
+        print('hhhhh',self.data)
         if data_update_obj in self.data:
             # self.j.update_json(self.config_data)
             print('aaaaaaaaaaa',True)
         else:
             print('2222222222',False)
         # 製作消息內容
-        tbl_message = self.tbl_message(product_price, self.current_time)
+        tbl_message = self.tbl_message(product_name, product_price, self.current_time)
 
         print('77777777',self.current_time)
 
         # 判斷價格變動 + 電腦微信自動化
-        self.s.send_by_wechat(self.tbl_message)
+        self.s.send_by_wechat(tbl_message)
 
     # def xs10_listen(self):
     #     # 相機價格
