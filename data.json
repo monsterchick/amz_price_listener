@@ -1,1 +1,7 @@
-{"product": {"name": "xs10", "price": null, "current_time": "2023120401:37:46"}}
+{
+    "xs10": {
+        "name": "xs10",
+        "price": "\u00a3999.00",
+        "current_time": "20231204_04:01:34"
+    }
+}

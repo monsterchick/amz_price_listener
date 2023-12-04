@@ -1,6 +1,4 @@
 import datetime
-import json
-
 from module.header_generator import header_generate
 from listen_logit.get_xs10_price import find_price
 import tabulate
@@ -13,6 +11,9 @@ class Main:
         # 初始化當前時間
         self.current_time = None
 
+        # 初始化價格
+        self.product_price = None
+
         # 初始化腳本實例
         self.s = Script()
 
@@ -20,11 +21,12 @@ class Main:
         self.j = Json('config.json')
         self.config_data = self.j.read_json()
 
+        # 加載data.json數據
+        self.jd = Json('data.json')
+        self.data = self.jd.read_json()
+
         # 加載隨機header
         self.headers = header_generate()
-
-        # list(self.config_data['url'].keys())[0]
-        print(list(self.config_data['url'].keys())[0])
 
     def make_datetime(self):
         current_datetime = datetime.datetime.now()
@@ -48,45 +50,40 @@ class Main:
 
         # 產品名字
         product_name = list(self.config_data['url'].keys())[0]
+        # print('lllll',product_name)
         # 當前時間
         current_time = self.make_datetime()
         # 相機價格
-        product_price = find_price(url=url, headers=self.headers)
+        self.product_price = find_price(url=url, headers=self.headers)
 
-        print('22222', product_name)
-        print('ddddd', self.config_data)
-        print('kkkk', product_name)
-        # print(product_price)
+        # print('22222aa', self.product_price)
+        # print('ddddd', self.config_data)
+        # print('kkkk', product_name)
 
         # 保存產品信息到本地
-        # print(self.config_data)
-
         data_update = {
-            'product':
+            '{}'.format(product_name):
                 {
                     'name': product_name,
-                    'price': product_price,
+                    'price': self.product_price,
                     'current_time': current_time
                 }
         }
-        print('123123123',data_update)
-        data_update_obj =json.dumps(data_update)
-        # print(type(data_update_obj))
+        # data_update = {
+        #     'test':
+        #         {
+        #             'name': 'test_prod',
+        #             'price': 1314,
+        #             'current_time': current_time
+        #         }
+        # }
 
-        # 加載data.json數據
-        self.jd = Json('data.json')
-        self.data = self.jd.read_json()
-        print('hhhhh',data_update_obj)
-        print('hhhhh',self.data)
-        if data_update_obj in self.data:
-            # self.j.update_json(self.config_data)
-            print('aaaaaaaaaaa',True)
-        else:
-            print('2222222222',False)
+        # 文件不為空，更新數據
+        self.jd.update_json(data_update)
+
         # 製作消息內容
-        tbl_message = self.tbl_message(product_name, product_price, self.current_time)
-
-        print('77777777',self.current_time)
+        tbl_message = self.tbl_message(product_name, self.product_price, self.current_time)
+        # print('77777777', self.current_time)
 
         # 判斷價格變動 + 電腦微信自動化
         self.s.send_by_wechat(tbl_message)
@@ -99,8 +96,7 @@ class Main:
     #     tbl_message = self.tbl_message(xs10_price)
     #
     #     self.s.send_by_wechat(tbl_message)
+
+
 m = Main()
 m.xs10_listen()
-
-
-
